@@ -28,8 +28,9 @@ jobs:
           --input .
           --main-jar kirkos.jar
           --name kirkos
-          --app-version 1
+          --app-version 1.0
           --vendor "K.I.R.K SYSTEMS"
+          --icon kirk.ico
 
       - name: Upload .deb
         uses: actions/upload-artifact@v4
@@ -59,9 +60,10 @@ jobs:
           --input .
           --main-jar kirkos.jar
           --name kirkos
-          --app-version 1
+          --app-version 1.0
           --vendor "K.I.R.K SYSTEMS"
           --win-console
+          --icon kirk.ico
 
       - name: Upload .exe
         uses: actions/upload-artifact@v4
