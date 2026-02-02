@@ -1,0 +1,68 @@
+name: Build KirkOS installers
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  linux-deb:
+    name: Build Linux .deb
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Build Debian package
+        run: |
+          jpackage \
+            --type deb \
+            --input . \
+            --main-jar kirkos.jar \
+            --name kirkos \
+            --app-version 1 \
+            --vendor "K.I.R.K SYSTEMS"
+
+      - name: Upload .deb
+        uses: actions/upload-artifact@v4
+        with:
+          name: kirkos-deb
+          path: "*.deb"
+
+  windows-exe:
+    name: Build Windows .exe
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Build Windows installer
+        run: |
+          jpackage ^
+            --type exe ^
+            --input . ^
+            --main-jar kirkos.jar ^
+            --name kirkos ^
+            --app-version 1 ^
+            --vendor "K.I.R.K SYSTEMS" ^
+            --win-console
+
+      - name: Upload .exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: kirkos-exe
+          path: "*.exe"
