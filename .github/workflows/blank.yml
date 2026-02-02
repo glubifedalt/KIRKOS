@@ -30,7 +30,7 @@ jobs:
           --name kirkos
           --app-version 1.0
           --vendor "K.I.R.K SYSTEMS"
-          --icon kirk.ico
+          --icon kirk.png
 
       - name: Upload .deb
         uses: actions/upload-artifact@v4
